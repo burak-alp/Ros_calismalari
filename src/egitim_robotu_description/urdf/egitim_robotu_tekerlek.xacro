@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="egitim_robotu_tekerlek" params="xyz_konum rpy_konum yon">
+  <link name="wheel_${yon}_link">
+    <çarpışma>
+       <orijin xyz="0 0 0" rpy="0 1.570796 1.570796"/>
+       <geometri>
+         <silindir yarıçapı="0,10" uzunluk="0,05"/>
+       </geometri>
+    </çarpışma>
+    <görsel>
+       <orijin xyz="0 0 0" rpy="0 1.570796 1.570796"/>
+       <geometri>
+         <silindir yarıçapı="0,10" uzunluk="0,05"/>
+       </geometri>
+    </görsel>
+    <xacro:cylinder_inertial radius="0.1" uzunluk="0.05" kütle="0.5"/>
+  </link>
+  
+  <joint name="wheel_${yon}_base" type="sürekli">
+    <origin xyz="${xyz_konum}" rpy="${rpy_konum}"/>
+    <parent link="base_footprint"/>
+    <child link="wheel_${yon}_link"/>
+    <eksen xyz="0 1 0"/>
+  </ortak>
+  
+  <gazebo reference="wheel_${yon}_link">
+    <material value="Çardak/Siyah"/>
+  </gazebo>  
+
+  </xacro:makro>
+
+  <xacro:macro name="egitim_robotu_sarhos_tekirlek" params="xyz_konum rpy_konum yon">
+  <link name="caster_wheel_${yon}_link">
+    <çarpışma>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <geometri>
+         <küre yarıçapı="0,05"/>
+       </geometri>
+    </çarpışma>
+    <görsel>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <geometri>
+         <küre yarıçapı="0,05"/>
+       </geometri>
+    </görsel>
+    <xacro:sphere_inertial radius="0.05" kütle="0.05"/>
+  </link>
+  
+  <joint name="caster_wheel_${yon}_base" type="sürekli">
+    <origin xyz="${xyz_konum}" rpy="${rpy_konum}"/>
+    <parent link="base_footprint"/>
+    <child link="caster_wheel_${yon}_link"/>
+    <eksen xyz="1 1 1"/>
+  </ortak>
+  
+  <gazebo reference="caster_wheel_${yon}_link">
+    <material value="Çardak/Beyaz"/>
+  </gazebo>  
+
+  </xacro:makro>
+
+</robot>
